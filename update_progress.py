@@ -1,35 +1,33 @@
-import os, json, re
+import os
+import json
 
-dirs = ["Strings","Arrays","Hashing","TwoPointers","SlidingWindow","Stack","Queue",
-        "BinarySearch","Greedy","Backtracking","Trees","Graphs","DP"]
+# Folders to scan
+CATEGORIES = [
+    "Strings", "Arrays", "Trees", "Graphs", "DP", "Hashing",
+    "TwoPointers", "SlidingWindow", "Stack", "Queue",
+    "BinarySearch", "Greedy", "Backtracking"
+]
 
-progress = {}
-total = 0
-latest = None
+files = []
 
-for d in dirs:
-    folder = os.path.join(".", d)
-    if os.path.exists(folder):
-        files = [f for f in os.listdir(folder) if f.endswith(".java")]
-        progress[d] = len(files)
-        total += len(files)
-        if files:
-            latest = max(files, key=os.path.getctime)
+for category in CATEGORIES:
+    folder_path = os.path.join(".", category)
+    if os.path.exists(folder_path):
+        # get all .java files in the folder
+        for f in os.listdir(folder_path):
+            if f.endswith(".java"):
+                files.append(os.path.join(folder_path, f))
 
-# Update README placeholders
-with open("README.md","r") as f:
-    readme = f.read()
+if not files:
+    print("No solved problems found.")
+    exit(0)
 
-for k,v in progress.items():
-    placeholder = f"${{{k.upper()}_COUNT}}"
-    readme = readme.replace(placeholder, str(v))
+# latest = most recently modified
+latest = max(files, key=os.path.getmtime)
 
-readme = readme.replace("${LATEST_PROBLEM}", latest or "N/A")
+print(f"Latest solved problem: {latest}")
 
-with open("README.md","w") as f:
-    f.write(readme)
+with open('progress.json', 'w') as f:
+    json.dump({"latest": latest, "count": len(files)}, f, indent=2)
 
-with open("progress.json","w") as f:
-    json.dump(progress, f, indent=2)
-
-print("Updated README & progress:", progress, "Latest:", latest)
+print("Progress updated successfully!")
