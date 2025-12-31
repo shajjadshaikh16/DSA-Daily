@@ -1,33 +1,56 @@
-# 💼 Java DSA Practice — Consistency Tracker
+# 🧠 Java DSA Practice — Topic-Wise Solutions
 
-> A curated collection of DSA problems solved in Java, focused on writing clean and optimal solutions while improving speed, accuracy, and intuition.
+A curated collection of **Data Structures & Algorithms problems solved in Java**, organized by topic for interview preparation and revision.
 
-### ✨ Highlights
-- 100% **Java-only**
-- Daily practice to build **interview readiness**
-- Includes: LeetCode + GFG + Company questions
-
-### 📈 Progress Snapshot
-> *Updated manually as I push solutions*
-
-| Category | Status |
-|----------|--------|
-| Strings | 🟢 In progress |
-| Arrays | 🟢 In progress |
-| Trees & Graphs | ⏳ upcoming |
-| DP | ⏳ upcoming |
-
-### 📁 Structure
+## 📂 Folder Structure
 src/
-├─ Strings/
-├─ Arrays/
-├─ Trees/
-├─ Graphs/
-└─ DP/
+├── Strings/
+├── Arrays/
+├── Hashing/
+├── TwoPointers/
+├── SlidingWindow/
+├── Stack/
+├── Queue/
+├── BinarySearch/
+├── Greedy/
+├── Backtracking/
+├── Trees/ (upcoming)
+├── Graphs/ (upcoming)
+├── DP/ (upcoming)
 
+yaml
+Copy code
+```markdown
 
-### 🧠 Tech Skills Practiced
-- Java OOP, Collections Framework
-- Time & Space Complexity
-- Recursion & Memoization
-- BFS / DFS, Backtracking
+## 🚀 Goals
+- Build daily problem-solving consistency
+- Prepare for FAANG / MAANG interviews
+- Maintain clean, readable Java solutions
+
+## 💡 Tech Stack
+- Java 8+
+- VS Code / IntelliJ
+- GitHub version control
+
+## 🧮 Progress Tracker
+
+| Category | Status | Problems |
+|----------|--------|---------|
+| Strings | 🟢 Active | 7 |
+| Arrays | 🔜 Next | — |
+| Hashing | 🔜 Next | — |
+
+> Progress updates automatically as new solutions are added.
+
+---
+
+## 📝 How to Run Solutions
+
+```bash
+javac Strings/242ValidAnagram.java
+java  Strings.242ValidAnagram
+🤝 Contributing
+Open for issues, suggestions and PRs!
+
+⭐ Support
+If this repo helped you, star it ⭐ and share!
