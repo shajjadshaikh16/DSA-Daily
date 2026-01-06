@@ -2,38 +2,40 @@ name: Auto Update Progress
 
 on:
   push:
-    branches:
-      - main
+    paths:
+      - '**/*.java'
+  workflow_dispatch:
 
 jobs:
   update:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
-      - name: Install dependencies (ignore if none)
-        run: |
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Install jq
+        run: sudo apt-get install jq
 
-      - name: Run progress updater
+      - name: Update Progress
         run: python update_progress.py
 
-      - name: Commit updated README and progress.json
+      - name: Update README Badges
+        run: |
+          COUNT=$(jq '.count' progress.json)
+          DATE=$(date +'%Y--%m--%d')
+
+          sed -i "s/Problems%20Solved-[^)]*/Problems%20Solved-$COUNT/" README.md
+          sed -i "s/Last%20Updated-[^)]*/Last%20Updated-$DATE/" README.md
+
+      - name: Commit and Push Changes
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add README.md progress.json || true
-          # Only commit if there are changes
-          if ! git diff --cached --quiet; then
-            git commit -m "Auto update progress"
-            git push
-          else
-            echo "No changes to commit"
-          fi
+          git add README.md progress.json
+          git commit -m "ci: auto-update progress + README badges" || echo "No changes to commit"
+          git push
