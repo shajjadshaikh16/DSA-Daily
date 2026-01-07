@@ -13,8 +13,8 @@ class Node{
         this.back = null;
     }
 }
-public class DeleteKthElementofDLL {
-    private static void print(Node head) {
+public class DeleteElementofDLL {
+       private static void print(Node head) {
         Node current = head;
         while (current != null) {
             System.out.print(current.data + " ");
@@ -56,31 +56,37 @@ public class DeleteKthElementofDLL {
         int[] arr = {2,13,6, 5, 8, 7,4,5,6};
         Node head = arrayToDDLinkedList(arr);
         int k = 3;
-        int val = 100;
-        head = deleteKthElementofDLL(head,k,val);
+        int val = 6;
+        head = deleteElementofDLL(head,val);
         print(head);
     }
-    private static Node deleteKthElementofDLL(Node head,int k,int val){
-        if(head==null) return null;
-        int cnt = 0;
-        Node knode = head;
-       
-        while(knode.next != null){
-            cnt++;
-            if(cnt==k){
-                break;
+    private static Node deleteElementofDLL(Node head,int val){
+        if (head == null) return null;
+        Node current = head;
+        while (current != null) {
+            if (current.data == val) {
+                if (current == head) {
+                    return DeleteHeadofDLL(head);
+                } else {
+                    // Node prev = current.back;
+                    // Node next = current.next;
+                    // prev.next = next;
+                    // if (next != null) next.back = prev;
+                    // current.next = null;
+                    // current.back = null;
+                    // return head;
+                    Node prev = current.back;
+                    Node front = current.next;
+                    if(front == null){
+                        return DeleteTailofDLL(head);
+                    }
+                    prev.next = front;
+                    front.back = prev;
+                    
+                }
             }
-            knode = knode.next;
+            current = current.next;
         }
-        Node prev = knode.back;
-        Node front = knode.next;
-        if(prev==null || front==null) return null;
-        else if(prev==null) return DeleteHeadofDLL(head);
-        else if(front==null) return DeleteTailofDLL(head);
-        prev.next = front;
-        front.back = prev;
-        knode.next = knode.back = null;
-
         return head;
     }
 }
